@@ -1,33 +1,35 @@
+import { pipe } from './pipe'
+
 export function split(separator: string) {
   return (source: string) => source.split(separator)
 }
 
-export function reverse(source: string) {
-  return source.split('').reverse().join()
+export function reverse() {
+  return (source: string) => source.split('').reverse().join()
 }
 
 export function join<A>(character: string) {
   return (source: A[]) => source.join(character)
 }
 
-export function capitalize(source: string) {
-  return source.charAt(0).toUpperCase() + source.slice(1)
+export function capitalize() {
+  return (source: string) => source.charAt(0).toUpperCase() + source.slice(1)
 }
 
-export function chars(source: string) {
-  return source.split('')
+export function chars() {
+  return (source: string) => source.split('')
 }
 
-export function charCodes(source: string) {
-  return chars(source).map((c) => c.charCodeAt(0))
+export function charCodes() {
+  return (source: string) => pipe(source, chars()).map((c) => c.charCodeAt(0))
 }
 
-export function fromCharCode(source: number) {
-  return String.fromCharCode(source)
+export function fromCharCode() {
+  return (source: number) => String.fromCharCode(source)
 }
 
-export function fromCharCodes(source: number[]) {
-  return String.fromCharCode(...source)
+export function fromCharCodes() {
+  return (source: number[]) => String.fromCharCode(...source)
 }
 
 export function capitalizeEvery(separator: string | RegExp = ' ') {

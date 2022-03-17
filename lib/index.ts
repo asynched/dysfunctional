@@ -5,7 +5,17 @@ import * as A from './array'
 import * as S from './string'
 
 P.pipe(
-  'Eder',
-  F.map((name) => `Hello, ${name}!`),
-  U.inspect((value) => console.log(value))
+  A.range(0, 10),
+  A.takeWhile((value) => value < 5),
+  A.filter((value) => value % 2 === 0),
+  A.fold(0, (total, value) => total + value),
+  F.map((value) => A.range(0, value)),
+  A.count()
+)
+
+P.pipe(
+  'Hello, world!',
+  S.charCodes(),
+  A.map((code) => code + 1),
+  S.fromCharCodes()
 )

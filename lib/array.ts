@@ -109,8 +109,8 @@ export function position<A>(predicate: (value: A) => boolean) {
   return (source: A[]): number => source.findIndex(predicate)
 }
 
-export function sum(source: number[]) {
-  return source.reduce((total, item) => total + item, 0)
+export function sum() {
+  return (source: number[]) => source.reduce((total, item) => total + item, 0)
 }
 
 /**
@@ -161,16 +161,9 @@ export function chain<A>(iter: A[]) {
   return (source: A[]): A[] => [...source, ...iter]
 }
 
-/**
- * # count
- *
- * Counts the number of items in an array.
- *
- * @param source Source array to count.
- * @returns Number of items in the array.
- */
-export function count<A>(source: A[]): number {
-  return source.length
+export function count<A>(counterFunction?: (value: A) => number) {
+  return (source: A[]) =>
+    counterFunction ? source.filter(counterFunction).length : source.length
 }
 
 export function partition<A>(predicate: (value: A) => boolean) {
@@ -202,12 +195,12 @@ export function inspect<A>(predicate: (value: A) => void) {
   }
 }
 
-export function first<A>(source: A[]): A {
-  return source[0]
+export function first<A>() {
+  return (source: A[]): A => source[0]
 }
 
-export function last<A>(source: A[]): A {
-  return source[source.length - 1]
+export function last<A>() {
+  return (source: A[]) => source[source.length - 1]
 }
 
 export function nth<A>(n: number) {
@@ -240,6 +233,7 @@ export function rangeInclusive(start: number, end: number): number[] {
   return range(start, end + 1)
 }
 
-export function enumerate<A>(source: A[]): Array<[number, A]> {
-  return source.map((item, index) => [index, item])
+export function enumerate<A>() {
+  return (source: A[]): Array<[number, A]> =>
+    source.map((item, index) => [index, item])
 }
